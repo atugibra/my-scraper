@@ -869,7 +869,8 @@ async function syncToBackend() {
                 const result = await window.backendSync.syncAll({
                     league: leagueName,
                     season: season,
-                    tables: item.tables
+                    tables: item.tables,
+                    team_logos: item.team_logos
                 });
 
                 if (result && result.success) {

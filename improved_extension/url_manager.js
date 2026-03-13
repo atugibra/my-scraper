@@ -103,7 +103,12 @@ const DEFAULT_URLS = [
     { name: 'Primeira Liga 2024-2025 Fixtures', url: 'https://fbref.com/en/comps/32/2024-2025/schedule/2024-2025-Primeira-Liga-Scores-and-Fixtures', league: 'Primeira Liga', type: 'historical_fixtures' },
     { name: 'Brasileirao Serie A 2024 Fixtures', url: 'https://fbref.com/en/comps/24/2024/schedule/2024-Serie-A-Scores-and-Fixtures', league: 'Brasileirao Serie A', type: 'historical_fixtures' },
     { name: 'Argentine Primera 2024 Fixtures', url: 'https://fbref.com/en/comps/21/2024/schedule/2024-Primera-Division-Scores-and-Fixtures', league: 'Argentine Primera Division', type: 'historical_fixtures' },
-    { name: 'J1 League 2024 Fixtures', url: 'https://fbref.com/en/comps/25/2024/schedule/2024-J1-League-Scores-and-Fixtures', league: 'J1 League', type: 'historical_fixtures' }
+    { name: 'J1 League 2024 Fixtures', url: 'https://fbref.com/en/comps/25/2024/schedule/2024-J1-League-Scores-and-Fixtures', league: 'J1 League', type: 'historical_fixtures' },
+
+    // ========== UEFA CLUB COMPETITIONS HISTORICAL DATA ==========
+    { name: 'Champions League 2024-2025 Fixtures', url: 'https://fbref.com/en/comps/8/2024-2025/schedule/2024-2025-Champions-League-Scores-and-Fixtures', league: 'UEFA Champions League', type: 'historical_fixtures' },
+    { name: 'Europa League 2024-2025 Fixtures', url: 'https://fbref.com/en/comps/19/2024-2025/schedule/2024-2025-Europa-League-Scores-and-Fixtures', league: 'UEFA Europa League', type: 'historical_fixtures' },
+    { name: 'Conference League 2024-2025 Fixtures', url: 'https://fbref.com/en/comps/882/2024-2025/schedule/2024-2025-UEFA-Europa-Conference-League-Scores-and-Fixtures', league: 'UEFA Conference League', type: 'historical_fixtures' }
 
 ];
 
