@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            width: 450px;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.2s;
+        }
+
+        .tab-button:hover {
+            background: #e9ecef;
+        }
+
+        .tab-button.active {
+            color: #667eea;
+            background: white;
+            border-bottom: 3px solid #667eea;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h2 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .status.active {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .status.inactive {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .progress-info {
+            background: #e7f3ff;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #1976D2;
+            display: none;
+        }
+
+        .progress-info.show {
+            display: block;
+        }
+
+        .folder-input {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .hint {
+            color: #666;
+            font-size: 11px;
+            display: block;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-start {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-start:hover {
+            background: #218838;
+            transform: translateY(-1px);
+        }
+
+        .btn-stop {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-stop:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .instructions {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .instructions h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .instructions ol {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin: 5px 0;
+        }
+
+        .alert-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .alert-box strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #856404;
+        }
+
+        .alert-box p {
+            margin: 0;
+            color: #856404;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .success-box.show {
+            display: block;
+        }
+
+        .success-box h3 {
+            color: #155724;
+            margin: 0 0 5px 0;
+            font-size: 15px;
+        }
+
+        .success-box p {
+            color: #155724;
+            margin: 0;
+            font-size: 12px;
+        }
+
+        /* URL List Styles */
+        .url-list {
+            max-height: 350px;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .url-item {
+            padding: 12px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .url-item:hover {
+            background: #f8f9fa;
+        }
+
+        .url-item:last-child {
+            border-bottom: none;
+        }
+
+        .url-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .url-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .url-link {
+            font-size: 11px;
+            color: #6c757d;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .url-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .badge-fixtures {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .badge-stats {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .url-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-icon {
+            padding: 6px 10px;
+            font-size: 16px;
+            background: transparent;
+            border: 1px solid #dee2e6;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            background: #e9ecef;
+        }
+
+        .btn-delete:hover {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .url-count {
+            background: #e7f3ff;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #1976D2;
+            font-weight: 600;
+        }
+
+        .mode-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .mode-html {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .mode-excel {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Tab Navigation -->
+    <div class="tab-nav">
+        <button class="tab-button active" data-tab="download">📥 Download</button>
+        <button class="tab-button" data-tab="predictions">🎯 Predictions</button>
+        <button class="tab-button" data-tab="urls">🔗 URLs</button>
+        <button class="tab-button" data-tab="enrichment">📊 Data+</button>
+        <button class="tab-button" data-tab="backend">🔌 Backend</button>
+        <button class="tab-button" data-tab="settings">⚙️ Settings</button>
+    </div>
+
+    <!-- Download Tab (Original Functionality) -->
+    <div id="tab-download" class="tab-content active">
+        <h2>⚽ Football League Auto Saver <span class="mode-badge mode-html">HTML Mode</span></h2>
+
+        <div id="status" class="status inactive">
+            ● Auto-Save: OFF
+        </div>
+
+        <div id="progressInfo" class="progress-info">
+            📥 Saved: 0/28 files
+        </div>
+
+        <div class="folder-input">
+            <label for="folderName">📁 Save files to folder:</label>
+            <input type="text" id="folderName" value="football_data" placeholder="e.g., football_data">
+            <small class="hint">
+                Files will be saved to: <strong>Downloads/[folder name]/</strong><br>
+                ⚠️ Change this if you already have a "data1" folder!
+            </small>
+        </div>
+
+        <div class="buttons">
+            <button id="startBtn" class="btn-start">Start Auto-Save</button>
+            <button id="stopBtn" class="btn-stop hidden">Stop Auto-Save</button>
+        </div>
+
+        <div id="successBox" class="success-box">
+            <h3>🎉 All Files Saved!</h3>
+            <p>Check your Downloads folder</p>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 How to Use:</h3>
+            <ol>
+                <li>Choose a folder name above (avoid conflicts!)</li>
+                <li>Click "Start Auto-Save"</li>
+                <li>Open Football_Downloader_FIXED.html</li>
+                <li>Click "Open All Tabs"</li>
+                <li>Watch progress here & in notifications!</li>
+            </ol>
+        </div>
+
+        <div class="alert-box">
+            <strong>⚠️ Important Notes:</strong>
+            <p>
+                • If updating existing files, use the SAME folder name<br>
+                • Extension will OVERWRITE old files (no duplicates)<br>
+                • First time: Chrome asks permission - click "Allow"<br>
+                • You'll see notifications as files save<br>
+                • Final notification when all files are done
+            </p>
+        </div>
+    </div>
+
+    <!-- Predictions Tab (NEW) -->
+    <div id="tab-predictions" class="tab-content">
+        <h2>🎯 Match Predictions</h2>
+
+        <div id="backend-status-indicator" class="status offline">
+            🔴 Backend Offline
+        </div>
+
+        <div id="backend-offline-message"
+            style="background: #fff3cd; border: 2px solid #ffc107; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+            <strong style="color: #856404;">⚠️ Backend Not Running</strong>
+            <p style="color: #856404; font-size: 12px; margin: 8px 0 0 0;">
+                To use predictions, start the Node backend:<br>
+                1. Open terminal in <code>prediction-tool/backend/</code><br>
+                2. Run: <code>node src/app.js</code><br>
+                3. Wait for "Server: http://localhost:4000"<br>
+                4. Refresh this popup
+            </p>
+        </div>
+
+        <div id="predictions-controls" style="display: none;">
+            <div style="margin-bottom: 15px;">
+                <label for="league-selector">⚽ Select League:</label>
+                <select id="league-selector"
+                    style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 14px; margin-top: 8px;">
+                    <option value="">-- Select a League --</option>
+                    <option value="Premier League">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</option>
+                    <option value="La Liga">🇪🇸 La Liga</option>
+                    <option value="Bundesliga">🇩🇪 Bundesliga</option>
+                    <option value="Serie A">🇮🇹 Serie A</option>
+                    <option value="Ligue 1">🇫🇷 Ligue 1</option>
+                    <option value="Eredivisie">🇳🇱 Eredivisie</option>
+                    <option value="Championship">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Championship</option>
+                    <option value="2. Bundesliga">🇩🇪 2. Bundesliga</option>
+                    <option value="Serie B">🇮🇹 Serie B</option>
+                    <option value="Segunda Division">🇪🇸 Segunda División</option>
+                    <option value="Ligue 2">🇫🇷 Ligue 2</option>
+                    <option value="League One">🏴󠁧󠁢󠁥󠁮󠁧󠁿 League One</option>
+                    <option value="League Two">🏴󠁧󠁢󠁥󠁮󠁧󠁿 League Two</option>
+                    <option value="Belgian Pro League">🇧🇪 Belgian Pro League</option>
+                    <option value="Super Lig">🇹🇷 Süper Lig</option>
+                </select>
+            </div>
+
+            <div class="buttons">
+                <button id="generate-predictions-btn" class="btn-primary">🔮 Generate Predictions</button>
+                <button id="export-predictions-btn" class="btn-secondary">📥 Export JSON</button>
+            </div>
+
+            <div id="prediction-results" style="display: none; margin-top: 20px;">
+                <div
+                    style="background: #e7f3ff; padding: 12px; border-radius: 6px; margin-bottom: 15px; text-align: center;">
+                    <div style="font-size: 13px; font-weight: 600; color: #1976D2;">
+                        <span id="predictions-count">0</span> Predictions Generated
+                    </div>
+                </div>
+
+                <div id="predictions-list"
+                    style="max-height: 400px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 6px;">
+                    <!-- Predictions will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions" style="margin-top: 20px;">
+            <h3>📋 How Predictions Work:</h3>
+            <p style="font-size: 12px; line-height: 1.6; margin: 10px 0;">
+                • <strong>Statistical Model</strong>: Form-based predictions (fast, explainable)<br>
+                • <strong>ML Model</strong>: Neural network predictions (accurate, complex)<br>
+                • <strong>Consensus</strong>: Combined recommendation from both models<br>
+                • <strong>All Markets</strong>: Win/Draw/Loss, Over/Under, BTTS, Clean Sheets, etc.
+            </p>
+        </div>
+    </div>
+
+    <!-- URLs Tab (New) -->
+    <div id="tab-urls" class="tab-content">
+        <h2>🔗 Manage URLs</h2>
+
+        <div class="url-count" id="urlCount">
+            Loading URLs...
+        </div>
+
+        <div class="buttons">
+            <button id="addUrlBtn" class="btn-primary">➕ Add URL</button>
+            <button id="resetUrlsBtn" class="btn-secondary">🔄 Reset to Defaults</button>
+        </div>
+
+        <div id="urlList" class="url-list">
+            <!-- URLs will be loaded here dynamically -->
+        </div>
+
+        <div class="buttons">
+            <button id="exportUrlsBtn" class="btn-secondary btn-small">Export</button>
+            <button id="importUrlsBtn" class="btn-secondary btn-small">Import</button>
+        </div>
+    </div>
+
+    <!-- Data Enrichment Tab (NEW) -->
+    <div id="tab-enrichment" class="tab-content">
+        <h2>📊 Data Enrichment</h2>
+
+        <div class="instructions" style="margin-bottom: 20px;">
+            <p style="margin: 0; font-size: 13px;">
+                Add odds, injuries, and weather data to your FBref Excel file.
+            </p>
+        </div>
+
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <label style="display: flex; align-items: center; margin-bottom: 12px; cursor: pointer;">
+                <input type="checkbox" id="enable-odds" checked
+                    style="margin-right: 10px; width: 18px; height: 18px; cursor: pointer;">
+                <div>
+                    <div style="font-weight: 600; font-size: 14px; color: #333;">🎲 Bookmaker Odds</div>
+                    <div style="font-size: 11px; color: #666;">Free CSV data from Football-Data.co.uk</div>
+                </div>
+            </label>
+
+            <label style="display: flex; align-items: center; margin-bottom: 12px; cursor: pointer;">
+                <input type="checkbox" id="enable-injuries" checked
+                    style="margin-right: 10px; width: 18px; height: 18px; cursor: pointer;">
+                <div>
+                    <div style="font-weight: 600; font-size: 14px; color: #333;">🏥 Injuries & Suspensions</div>
+                    <div style="font-size: 11px; color: #666;">Current status from Transfermarkt (~30s)</div>
+                </div>
+            </label>
+
+            <label style="display: flex; align-items: center; cursor: pointer;">
+                <input type="checkbox" id="enable-weather"
+                    style="margin-right: 10px; width: 18px; height: 18px; cursor: pointer;">
+                <div>
+                    <div style="font-weight: 600; font-size: 14px; color: #333;">🌤️ Weather Forecasts</div>
+                    <div style="font-size: 11px; color: #666;">5-day forecast for upcoming matches (requires API key)
+                    </div>
+                </div>
+            </label>
+
+            <div id="weather-api-container"
+                style="display: none; margin-top: 15px; padding: 12px; background: white; border-radius: 6px;">
+                <label style="font-size: 12px; font-weight: 600; color: #555; margin-bottom: 8px;">
+                    OpenWeatherMap API Key:
+                </label>
+                <input type="text" id="weather-api-key" placeholder="Enter your free API key"
+                    style="width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 4px; font-size: 12px; box-sizing: border-box; margin-bottom: 8px;">
+                <a href="https://openweathermap.org/api" target="_blank"
+                    style="font-size: 11px; color: #667eea; text-decoration: none;">
+                    Get Free API Key (1000 calls/day) →
+                </a>
+            </div>
+
+            <label style="display: flex; align-items: center; margin-top: 12px; cursor: pointer;">
+                <input type="checkbox" id="enable-clubelo" checked
+                    style="margin-right: 10px; width: 18px; height: 18px; cursor: pointer;">
+                <div>
+                    <div style="font-weight: 600; font-size: 14px; color: #333;">📊 ClubElo Fixtures</div>
+                    <div style="font-size: 11px; color: #666;">Statistical probabilities & 1X2 odds for upcoming matches
+                    </div>
+                </div>
+            </label>
+
+            <div style="margin-top: 10px; margin-left: 28px; display: flex; align-items: center; gap: 10px;">
+                <label style="font-size: 12px; color: #666;">Days ahead:</label>
+                <input type="number" id="clubelo-days" value="7" min="1" max="30"
+                    style="width: 60px; padding: 6px; border: 2px solid #ddd; border-radius: 4px; font-size: 12px;">
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button id="enrich-data-btn" class="btn-primary" style="width: 100%;">
+                ✨ Enrich Current Data
+            </button>
+        </div>
+
+        <div id="enrichment-status"
+            style="display: none; margin-top: 15px; padding: 12px; border-radius: 6px; font-size: 13px;">
+        </div>
+
+        <div id="enrichment-progress" style="display: none; margin-top: 15px;">
+            <div style="background: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 13px; font-weight: 600;" id="progress-text">Starting...</span>
+                    <span style="font-size: 13px; color: #667eea;" id="progress-percent">0%</span>
+                </div>
+                <div style="background: #dee2e6; height: 8px; border-radius: 4px; overflow: hidden;">
+                    <div id="progress-bar"
+                        style="background: linear-gradient(90deg, #667eea, #764ba2); height: 100%; width: 0%; transition: width 0.3s;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert-box">
+            <strong>ℹ️ How It Works:</strong>
+            <p>
+                1. Select which data sources to include<br>
+                2. For weather: enter your free API key<br>
+                3. Click "Enrich Current Data"<br>
+                4. Extension adds 3 new sheets to Excel file:<br>
+                • Odds_Data (bookmaker odds)<br>
+                • Injuries (current injuries/suspensions)<br>
+                • Weather (forecasts for upcoming matches)
+            </p>
+        </div>
+
+        <div class="instructions" style="margin-top: 20px;">
+            <h3>📋 Estimated Time:</h3>
+            <ul style="list-style: none; padding: 0; margin: 10px 0;">
+                <li style="padding: 5px 0;">🎲 Odds: ~30 seconds (all leagues)</li>
+                <li style="padding: 5px 0;">🏥 Injuries: ~30 seconds (all leagues)</li>
+                <li style="padding: 5px 0;">🌤️ Weather: ~5 seconds (upcoming matches only)</li>
+            </ul>
+            <p style="margin: 10px 0 0 0; font-size: 12px; color: #666;">
+                Total: ~60-90 seconds for complete enrichment
+            </p>
+        </div>
+    </div>
+
+    <!-- Backend Tab (PredictIQ Auth) -->
+    <div id="tab-backend" class="tab-content" style="padding:0;background:#0d1117;min-height:200px;color:#e6edf3">
+        <!-- Rendered dynamically by initBackendTab() in popup_enhanced.js -->
+    </div>
+
+    <!-- Settings Tab (New) -->
+    <div id="tab-settings" class="tab-content">
+        <h2>🧪 Test Data Scraper</h2>
+
+        <div class="instructions" style="margin-bottom: 15px;">
+            <p style="margin: 0;">
+                Open an FBref page in a new tab, then click "Test Current Tab" to extract table data.
+            </p>
+        </div>
+
+        <div class="buttons">
+            <button id="testScraperBtn" class="btn-primary">🧪 Test Current Tab</button>
+            <button id="clearTestBtn" class="btn-secondary">Clear Output</button>
+        </div>
+
+        <div id="testStatus" style="display: none; padding: 10px; border-radius: 6px; margin: 15px 0; font-size: 13px;">
+        </div>
+
+        <div id="testSummary"
+            style="display: none; background: #e7f3ff; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                <div>
+                    <div style="font-size: 11px; color: #666;">League</div>
+                    <div id="summaryLeague" style="font-weight: 600; font-size: 14px; color: #333;"></div>
+                </div>
+                <div>
+                    <div style="font-size: 11px; color: #666;">Page Type</div>
+                    <div id="summaryType" style="font-weight: 600; font-size: 14px; color: #333;"></div>
+                </div>
+                <div>
+                    <div style="font-size: 11px; color: #666;">Tables Found</div>
+                    <div id="summaryTables" style="font-weight: 600; font-size: 14px; color: #1976D2;"></div>
+                </div>
+                <div>
+                    <div style="font-size: 11px; color: #666;">Total Rows</div>
+                    <div id="summaryRows" style="font-weight: 600; font-size: 14px; color: #1976D2;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="testOutput"
+            style="display: none; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; padding: 15px; max-height: 400px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 10px; line-height: 1.4; white-space: pre-wrap; word-break: break-all;">
+        </div>
+
+        <div class="instructions" style="margin-top: 20px;">
+            <h3>📋 Sample FBref URLs</h3>
+            <p style="font-size: 11px; color: #666; margin-bottom: 10px;">Click to open in new tab:</p>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 8px;">
+                    <a href="https://fbref.com/en/comps/9/schedule/Premier-League-Scores-and-Fixtures" target="_blank"
+                        style="color: #667eea; text-decoration: none; font-size: 12px;">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League -
+                        Fixtures</a>
+                </li>
+                <li style="margin-bottom: 8px;">
+                    <a href="https://fbref.com/en/comps/9/Premier-League-Stats" target="_blank"
+                        style="color: #667eea; text-decoration: none; font-size: 12px;">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League -
+                        Stats</a>
+                </li>
+                <li style="margin-bottom: 8px;">
+                    <a href="https://fbref.com/en/comps/12/schedule/La-Liga-Scores-and-Fixtures" target="_blank"
+                        style="color: #667eea; text-decoration: none; font-size: 12px;">🇪🇸 La Liga - Fixtures</a>
+                </li>
+                <li style="margin-bottom: 8px;">
+                    <a href="https://fbref.com/en/comps/20/Bundesliga-Stats" target="_blank"
+                        style="color: #667eea; text-decoration: none; font-size: 12px;">🇩🇪 Bundesliga - Stats</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="alert-box" style="margin-top: 20px;">
+            <strong>💡 How to Test:</strong>
+            <p>
+                1. Click a sample URL above (opens FBref page)<br>
+                2. Click "Test Current Tab" button<br>
+                3. Review extracted data below<br>
+                4. Test with different leagues/pages
+            </p>
+        </div>
+
+        <!-- Excel Test Link -->
+        <hr style="margin: 30px 0; border: none; border-top: 2px solid #dee2e6;">
+
+        <h2>📊 Excel Generation Test</h2>
+        <div class="instructions">
+            <p style="margin-bottom: 15px;">
+                Test creating Excel files from scraped FBref data on a dedicated options page.
+            </p>
+            <p
+                style="background: #fff3cd; border: 2px solid #ffc107; padding: 12px; border-radius: 6px; margin-bottom: 15px; color: #856404;">
+                <strong>How to open:</strong><br>
+                1. Go to <code>chrome://extensions/</code><br>
+                2. Find "Football League Auto Saver"<br>
+                3. Click <strong>"Details"</strong><br>
+                4. Click <strong>"Extension options"</strong>
+            </p>
+            <p style="font-size: 11px; color: #666;">
+                Or just reload the extension and right-click the icon → Options
+            </p>
+        </div>
+
+        <!-- Batch Processor Link -->
+        <hr style="margin: 30px 0; border: none; border-top: 2px solid #dee2e6;">
+
+        <h2>🚀 Batch Data Export</h2>
+        <div class="instructions">
+            <p style="margin-bottom: 15px;">
+                Process all your configured URLs automatically and export to single Excel file with all leagues.
+            </p>
+            <a href="batch_processor.html" target="_blank"
+                style="display: inline-block; padding: 12px 24px; background: #10b981; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; margin-bottom: 10px;">
+                🚀 Open Batch Processor
+            </a>
+            <p style="font-size: 11px; color: #666;">
+                Processes all URLs sequentially · ~30s per URL · Pause/Resume available
+            </p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- NEW: Prediction System Scripts -->
+    <script src="indexeddb_manager.js"></script>
+    <script src="backend_sync.js"></script>
+    <script src="popup_predictions.js"></script>
+
+    <!-- Data Enrichment Modules (NEW) -->
+    <script src="odds_scraper.js"></script>
+    <script src="injury_scraper.js"></script>
+    <script src="weather_api.js"></script>
+    <script src="clubelo_scraper.js"></script>
+    <script src="enrichment_processor.js"></script>
+
+    <!-- Existing Scripts -->
+    <script src="url_manager.js"></script>
+    <script src="popup_enhanced.js"></script>
+</body>
+
+</html>
