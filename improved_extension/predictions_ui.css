@@ -1,0 +1,382 @@
+/* Predictions Tab Styling */
+
+.predictions-card {
+    border-bottom: 1px solid #dee2e6;
+    padding: 15px;
+    background: white;
+    transition: background 0.2s;
+}
+
+.predictions-card:hover {
+    background: #f8f9fa;
+}
+
+.predictions-card:last-child {
+    border-bottom: none;
+}
+
+.match-header {
+    font-weight: 700;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.prediction-result {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.prediction-result-header {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.prediction-probabilities {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.probability-item {
+    flex: 1;
+    text-align: center;
+}
+
+.probability-label {
+    font-size: 10px;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.probability-value {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.probability-value.high {
+    color: #28a745;
+}
+
+.probability-value.medium {
+    color: #ffc107;
+}
+
+.probability-value.low {
+    color: #dc3545;
+}
+
+.goals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.goal-item {
+    background: #e7f3ff;
+    padding: 6px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 11px;
+}
+
+.goal-label {
+    color: #666;
+    font-size: 10px;
+}
+
+.goal-value {
+    font-weight: 700;
+    color: #1976D2;
+    font-size: 12px;
+}
+
+.btts-info {
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+.btts-label {
+    color: #666;
+}
+
+.btts-value {
+    font-weight: 700;
+}
+
+.btts-value.yes {
+    color: #28a745;
+}
+
+.btts-value.no {
+    color: #dc3545;
+}
+
+.confidence-meter {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #dee2e6;
+}
+
+.confidence-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.confidence-label {
+    font-size: 10px;
+    color: #666;
+}
+
+.confidence-percentage {
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.confidence-percentage.high {
+    color: #28a745;
+}
+
+.confidence-percentage.medium {
+    color: #ffc107;
+}
+
+.confidence-percentage.low {
+    color: #dc3545;
+}
+
+.confidence-bar-container {
+    background: #dee2e6;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.confidence-bar {
+    height: 100%;
+    transition: width 0.3s;
+    border-radius: 3px;
+}
+
+.confidence-bar.high {
+    background: #28a745;
+}
+
+.confidence-bar.medium {
+    background: #ffc107;
+}
+
+.confidence-bar.low {
+    background: #dc3545;
+}
+
+.prediction-explanation {
+    margin-top: 8px;
+    font-size: 10px;
+    color: #666;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* Backend Status Indicator */
+.status.online {
+    background: #d4edda;
+    color: #155724;
+    border: 2px solid #c3e6cb;
+}
+
+.status.offline {
+    background: #f8d7da;
+    color: #721c24;
+    border: 2px solid #f5c6cb;
+}
+
+/* Model comparison table */
+.model-comparison {
+    margin-top: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.model-comparison table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+.model-comparison th {
+    background: #f8f9fa;
+    padding: 8px;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.model-comparison td {
+    padding: 8px;
+    border-bottom: 1px solid #e9ecef;
+    text-align: center;
+}
+
+.model-comparison tr:last-child td {
+    border-bottom: none;
+}
+
+.model-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.model-badge.statistical {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.model-badge.ml {
+    background: #d4edda;
+    color: #155724;
+}
+
+.model-badge.consensus {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* Loading animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+}
+
+/* No results message */
+.no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+}
+
+.no-results-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+    opacity: 0.5;
+}
+
+.no-results-text {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.no-results-hint {
+    font-size: 12px;
+    color: #999;
+}
+
+/* ===== OPTIONAL BACKEND FEATURE STYLING ===== */
+
+/* Optional feature button styling */
+.optional-feature {
+    background: #6c757d !important;
+    opacity: 0.95;
+    border: none;
+    transition: all 0.2s;
+}
+
+.optional-feature:hover:not(:disabled) {
+    background: #5a6268 !important;
+    opacity: 1;
+    transform: translateY(-1px);
+}
+
+.optional-feature:disabled {
+    background: #e9ecef !important;
+    color: #6c757d !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Info text below optional buttons */
+.info-text {
+    color: #6c757d;
+    font-size: 11px;
+    display: block;
+    margin-top: 6px;
+    line-height: 1.4;
+    font-weight: normal;
+}
+
+.info-text a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.info-text a:hover {
+    text-decoration: underline;
+}
+
+/* Backend status - info variant (not alarming) */
+.backend-status.info {
+    background: #e7f3ff;
+    color: #0066cc;
+    border-left: 3px solid #0066cc;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.backend-status.info small {
+    font-size: 11px;
+    color: #0066cc;
+}
+
+/* Helpful message styling */
+.helpful-message {
+    background: #fff8dc;
+    border-left: 4px solid #ffc107;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.helpful-message strong {
+    color: #856404;
+}
+
+.helpful-message a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.helpful-message a:hover {
+    text-decoration: underline;
+}
